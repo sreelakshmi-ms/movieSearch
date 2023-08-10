@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+<body style="background-image:url(./images/cinema-background-concept-vector.jpg);background-size: cover;">
+    <div class="container mt-5 ps-5 pb-2 pe-5 pt-4 text-black" style="height: 600px;width: 50%;background-color:rgba(0, 0, 0, 0.815);border-radius: 15px;position: relative;">
+        <h1 class="text-center text-white mt-3 mb-3">Search Movie</h1>
+        <form action="">
+            <input type="text" class="form-control" id="mname" placeholder="Enter the movie name" style="height: 40px;width: 100%;">
+            <button type="button" class="btn btn-danger mt-3 container" onclick="accessData()">Search</button>
+        </form>
+        <div id="result" class="me-5 mt-5" style="position: absolute;"></div>
+    </div>
+</body>
+<script>
+    function accessData(){
+        movie=mname.value
+        fetch(`https://www.omdbapi.com/?i=tt3896198&apikey=cce7f5b8&t=${movie}`).then(data=>data.json()).then(mdata=>showData(mdata))
+        function showData(movieData){
+            year=movieData.Year
+            genre=movieData.Genre
+            director=movieData.Director
+            plot=movieData.Plot
+            rating=movieData.imdbRating
+            result.innerHTML =`
+           <center>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Release Year:${year}</li>
+    <li class="list-group-item">Genre:${genre}</li>
+    <li class="list-group-item">Director:${director}</li>
+    <li class="list-group-item">Plot:${plot}</li>
+    <li class="list-group-item">IMDB Rating:${rating}</li>
+  </ul>
+            </center>`
+        }
+    }
+</script>
+</html>
